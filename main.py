@@ -108,7 +108,7 @@ def infer(image_path, prompt):
 app = FastAPI()
 
 @app.get("/")
-def read_root():
+async def read_root():
     return {"asd": "test4e"}
     return {"output": infer(images, prompt_textbox)}
 

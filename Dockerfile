@@ -19,6 +19,6 @@ COPY . /code/app
 EXPOSE 5000
 ENV PORT 5000
 
-CMD exec uvicorn --port $PORT --workers 1 app.main:app
+#CMD exec uvicorn --port $PORT --workers 1 --host app.main:app
 
-#CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0",  "--port", "5000",  "--workers", "1"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0",  "--port", "5000",  "--workers", "1"]
