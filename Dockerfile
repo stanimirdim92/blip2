@@ -1,20 +1,24 @@
-FROM python:3.9
+FROM python:3.11
 
 WORKDIR /code
 
 COPY ./requirements.txt /code/requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install  --upgrade -r /code/requirements.txt
 
-RUN useradd -m -u 1000 user
+#RUN useradd -m -u 1000 user
 
-USER user
+#USER user
 
-ENV HOME=/home/user \
-    PATH=/home/user/.local/bin:$PATH
+#ENV HOME=/home/user \
+#    PATH=/home/user/.local/bin:$PATH
 
-WORKDIR $HOME/app
 
-COPY --chown=user . $HOME/app
+COPY . /code/app
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860", "--threads", "1", "--workers", "1"]
+EXPOSE 5000
+ENV PORT 5000
+
+CMD exec uvicorn --port $PORT --workers 1 app.main:app
+
+#CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0",  "--port", "5000",  "--workers", "1"]
